@@ -10,6 +10,7 @@ import About from './components/About/About'
 import NotFound from './components/Shared/NotFound/NotFound'
 import Checkout from './components/Checkout/Checkout'
 import Signup from './components/Signup/Signup'
+import Footer from './components/Shared/Footer/Footer'
 
 function App() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 				<Route path='/about' element={<About></About>}></Route>
 				<Route path='*' element={<NotFound></NotFound>}></Route>
 			</Routes>
+			<Footer></Footer>
 		</div>
 	)
 }

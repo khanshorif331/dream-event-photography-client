@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Social from '../Shared/Social/Social'
 
 const Signup = () => {
 	return (
 		<div class='p-4 mx-auto mt-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
 			<form class='space-y-6' action='#'>
 				<h5 class='text-xl font-medium text-gray-900 dark:text-white'>
-					Sign in to our platform
+					Sign Up Here
 				</h5>
 				<div>
 					<label
@@ -64,7 +65,7 @@ const Signup = () => {
 						href='#'
 						class='ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500'
 					>
-						Lost Password?
+						Already Have an Account?
 					</a>
 				</div>
 				<button
@@ -74,15 +75,16 @@ const Signup = () => {
 					Login to your account
 				</button>
 				<div class='text-sm font-medium text-gray-500 dark:text-gray-300'>
-					Not registered?{' '}
+					Already Have an Account?{' '}
 					<Link
-						to='/signup'
+						to='/login'
 						class='text-blue-700 hover:underline dark:text-blue-500'
 					>
-						Create account
+						Login
 					</Link>
 				</div>
 			</form>
+			<Social></Social>
 		</div>
 	)
 }
