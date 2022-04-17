@@ -7,7 +7,7 @@ import Services from '../Services/Services'
 const Home = () => {
 	return (
 		<div>
-			<img src={img2} className='img-fluid' alt='' />
+			<img src={img2} className='img-fluid mx-auto' alt='' />
 			<Services></Services>
 		</div>
 	)

@@ -9,8 +9,9 @@ const Footer = () => {
 					© 2022 Shorif All Rights Reserved.
 				</span>
 				<div class='flex mt-4 space-x-6 sm:justify-center md:mt-0'>
-					<Link
-						to='https://www.facebook.com/profile.php?id=100007348775910'
+					<a
+						href='https://www.facebook.com/profile.php?id=100007348775910'
+						target='_blank'
 						class='text-gray-400 hover:text-white'
 					>
 						<svg
@@ -25,7 +26,7 @@ const Footer = () => {
 								clip-rule='evenodd'
 							/>
 						</svg>
-					</Link>
+					</a>
 					<a href='#' class='text-gray-400 hover:text-white'>
 						<svg
 							class='w-5 h-5'
