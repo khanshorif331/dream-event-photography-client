@@ -1,11 +1,60 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import {
+	useCreateUserWithEmailAndPassword,
+	useSendEmailVerification,
+} from 'react-firebase-hooks/auth'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify'
+import auth from '../../firebase.init'
 import Social from '../Shared/Social/Social'
 
 const Signup = () => {
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [confirmPass, setConfirmPass] = useState('')
+
+	const [createUserWithEmailAndPassword, user, loading, error] =
+		useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true })
+
+	const [sendEmailVerification, sending, verificationError] =
+		useSendEmailVerification(auth)
+
+	const handleEmail = event => {
+		setEmail(event.target.value)
+		console.log(email)
+	}
+	const handlePassword = event => {
+		setPassword(event.target.value)
+		console.log(password)
+	}
+	const handleConfirmPass = event => {
+		setConfirmPass(event.target.value)
+		console.log(confirmPass)
+	}
+
+	const handleSubmit = async event => {
+		event.preventDefault()
+		createUserWithEmailAndPassword(email, password)
+		await sendEmailVerification()
+		return <ToastContainer></ToastContainer>
+		// toast.success('Success Notification !', {
+		// 	position: toast.POSITION.TOP_CENTER,
+		// })
+	}
+
+	const navigate = useNavigate()
+	const location = useLocation()
+	const from = location.state?.from?.pathname || '/'
+
+	useEffect(() => {
+		if (user) {
+			navigate(from)
+		}
+	}, [user])
+
 	return (
 		<div class='p-4 mx-auto mt-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
-			<form class='space-y-6' action='#'>
+			<form onSubmit={handleSubmit} class='space-y-6'>
 				<h5 class='text-xl font-medium text-gray-900 dark:text-white'>
 					Sign Up Here
 				</h5>
@@ -33,6 +82,7 @@ const Signup = () => {
 						Your email
 					</label>
 					<input
+						onChange={handleEmail}
 						type='email'
 						name='email'
 						id='email'
@@ -49,6 +99,7 @@ const Signup = () => {
 						Your password
 					</label>
 					<input
+						onChange={handlePassword}
 						type='password'
 						name='password'
 						id='password'
@@ -65,6 +116,7 @@ const Signup = () => {
 						Confirm Password
 					</label>
 					<input
+						onChange={handleConfirmPass}
 						type='password'
 						name='password'
 						id='password'
@@ -99,7 +151,7 @@ const Signup = () => {
 					type='submit'
 					class='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
 				>
-					Login to your account
+					Sign up your Account
 				</button>
 				<div class='text-sm font-medium text-gray-500 dark:text-gray-300'>
 					Already Have an Account?{' '}

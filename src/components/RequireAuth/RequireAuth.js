@@ -9,6 +9,13 @@ const RequireAuth = ({ children }) => {
 	// function RequireAuth({ children }) {
 	let location = useLocation()
 
+	if (loading) {
+		return (
+			<div class='spinner-border' role='status'>
+				<span class='visually-hidden'>Loading...</span>
+			</div>
+		)
+	}
 	if (!user) {
 		console.log(user)
 		// Redirect them to the /login page, but save the current location they were
