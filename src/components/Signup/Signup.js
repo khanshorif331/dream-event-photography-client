@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Spinner } from 'react-bootstrap'
 import {
 	useCreateUserWithEmailAndPassword,
 	useSendEmailVerification,
@@ -35,8 +36,8 @@ const Signup = () => {
 	const handleSubmit = async event => {
 		event.preventDefault()
 		createUserWithEmailAndPassword(email, password)
-		await sendEmailVerification()
-		return <ToastContainer></ToastContainer>
+		// await sendEmailVerification()
+		// return <ToastContainer></ToastContainer>
 		// toast.success('Success Notification !', {
 		// 	position: toast.POSITION.TOP_CENTER,
 		// })
@@ -46,11 +47,24 @@ const Signup = () => {
 	const location = useLocation()
 	const from = location.state?.from?.pathname || '/'
 
-	useEffect(() => {
-		if (user) {
-			navigate(from)
-		}
-	}, [user])
+	// if (error) {
+	// 	return (
+	// 		<div>
+	// 			<p>Error: {error.message}</p>
+	// 		</div>
+	// 	)
+	// }
+	if (loading) {
+		return (
+			<Spinner className='my-auto' animation='border' role='status'>
+				<span className='visually-hidden'>Loading...</span>
+			</Spinner>
+		)
+	}
+
+	if (user) {
+		navigate(from)
+	}
 
 	return (
 		<div class='p-4 mx-auto mt-10 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700'>
@@ -147,6 +161,7 @@ const Signup = () => {
 						</div>
 					</div>
 				</div>
+				{error ? <p className='text-danger'>{error?.message}</p> : ''}
 				<button
 					type='submit'
 					class='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
