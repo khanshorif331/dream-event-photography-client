@@ -9,7 +9,7 @@ import NotFound from './components/Shared/NotFound/NotFound'
 import Checkout from './components/Checkout/Checkout'
 import Signup from './components/Signup/Signup'
 import Footer from './components/Shared/Footer/Footer'
-import RequireAuth from './RequireAuth'
+import RequireAuth from './components/RequireAuth/RequireAuth'
 
 function App() {
 	return (

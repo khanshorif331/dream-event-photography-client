@@ -4,7 +4,7 @@ import {
 	useSignInWithGithub,
 	useSignInWithGoogle,
 } from 'react-firebase-hooks/auth'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Social = () => {
 	const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth)
@@ -47,9 +47,6 @@ const Social = () => {
 
 	if (user || user1) {
 		navigate('/home')
-		// <div>
-		// 	<p>Signed In User: {user.email}</p>
-		// </div>
 	}
 
 	return (
