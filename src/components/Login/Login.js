@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Spinner } from 'react-bootstrap'
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import {
+	useSendPasswordResetEmail,
+	useSignInWithEmailAndPassword,
+} from 'react-firebase-hooks/auth'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import auth from '../../firebase.init'
 import Social from '../Shared/Social/Social'
@@ -12,6 +15,8 @@ const Login = () => {
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [sendPasswordResetEmail, sending, resetError] =
+		useSendPasswordResetEmail(auth)
 
 	const [signInWithEmailAndPassword, user, loading, error] =
 		useSignInWithEmailAndPassword(auth)
@@ -36,14 +41,6 @@ const Login = () => {
 			</Spinner>
 		)
 	}
-
-	// if (error) {
-	// 	return (
-	// 		<div>
-	// 			<p>Error: {error.message}</p>
-	// 		</div>
-	// 	)
-	// }
 
 	if (user) {
 		return navigate(from)
@@ -110,14 +107,21 @@ const Login = () => {
 								</label>
 							</div>
 						</div>
-						<a
-							href='#'
+						<button
+							onClick={async () => {
+								await sendPasswordResetEmail(email)
+								alert('Sent email')
+							}}
 							class='ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500'
 						>
-							Lost Password?
-						</a>
+							Forgot Password?
+						</button>
 					</div>
-					{error ? <p className='text-danger'>{error?.message}</p> : ''}
+					{error || resetError ? (
+						<p className='text-danger'>{error?.message}</p>
+					) : (
+						''
+					)}
 					<button
 						type='submit'
 						class='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
